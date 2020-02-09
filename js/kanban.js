@@ -6,7 +6,7 @@ const message = 'Please add a description.';
 
 const add_btn = document.querySelector('.add');
 add_btn.addEventListener('click', () => {
-  const target = document.querySelector('#requested');
+  let target = document.querySelector('#requested');
   if (adding == false) {
     adding = true;
     target.appendChild(create_item());
@@ -16,13 +16,13 @@ add_btn.addEventListener('click', () => {
 });
 
 const create_item = () => {
-  const item = document.createElement('div');
+  let item = document.createElement('div');
   item.classList.add('item');
   item.id = 'item- '+ order;
   item.draggable = true;
 
-  item.addEventListener('dragstart', (event) => { return event.dataTransfer.setData('text', event.target.id)});
-  item.addEventListener('dragend', (event) => { return event.dataTransfer.clearData()});
+  item.addEventListener('dragstart',event => event.dataTransfer.setData('text', event.target.id));
+  item.addEventListener('dragend', event => event.dataTransfer.clearData());
 
   const input = document.createElement('input');
   item.appendChild(input);
@@ -32,12 +32,12 @@ const create_item = () => {
   
   save_btn.addEventListener('click', () => { 
      error.innerHTML = ""; 
-    if (input.value !== "") {
+     if (input.value !== "") {
       order += 1;
       item.innerHTML = input.value;
       adding = false;
-    } else {
-      error.innerHTML = message;
+     } else {
+       error.innerHTML = message;
     }
 });
 item.appendChild(save_btn);
@@ -45,9 +45,9 @@ return item;
 };
 
 document.querySelectorAll('.drop').forEach(element => {
-  element.addEventListener('drop', (event) => {
+  element.addEventListener('drop', (event) => { 
     event.preventDefault();
-    const id = event.dataTransfer.getData();
+    const id = event.dataTransfer.getData('text');
     event.target.appendChild(document.getElementById(id));
   });
   element.addEventListener('dragover', (event) => {
