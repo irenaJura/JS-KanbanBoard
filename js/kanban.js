@@ -20,7 +20,12 @@ const create_item = () => {
   item.classList.add('item');
   item.id = 'item- '+ order;
   item.draggable = true;
-  item.addEventListener('dragstart', (event) => { return event.dataTransfer.setData('text', event.target.id)})
+  item.addEventListener('dragstart', (event) => { return event.dataTransfer.setData('text', event.target.id)});
+  item.addEventListener('dragend', (event) => { return event.dataTransfer.clearData()});
+  const input = document.createElement('input');
+  item.appendChild(input);
+  const save_btn = document.createElement('button');
+  save_btn.innerHTML = "Save";
 };
 
 document.querySelectorAll('.drop').forEach(element => {
